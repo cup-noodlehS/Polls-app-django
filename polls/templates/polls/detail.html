@@ -1,0 +1,58 @@
+{% include "./partials/head.html" %}
+  <body>
+    {% include "./partials/navbar.html" %}
+    <main class="container">
+      <div class="d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
+        <div class="d-flex align-items-center">
+          <h5 class="m-3">{{question.question_text}}</h5>
+            <form action="{% url 'polls:deletequestion' %}" method="post">
+              {% csrf_token %}
+              <fieldset>
+                <input type="hidden" name="id" value="{{ question.id }}">
+                  <button type="submit" class="btn btn-outline-danger">Delete</button>  
+              </fieldset>
+            </form>
+        </div>
+        
+        <form action="{% url 'polls:vote' question.id %}" method="post">
+          {% csrf_token %}
+          <fieldset class="d-flex justify-content-center">
+          <div class="card" style="width: 20rem;">
+            <ul class="list-group list-group-flush">
+              {% if error_message %}
+              <li class="list-group-item">
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                  <strong>{{ error_message }}</strong>
+                  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+              </li>
+              {% endif %}
+               
+              {% for choice in question.choice_set.all %}
+              <li class="list-group-item">
+                <input
+                  type="radio"
+                  name="choice"
+                  id="choice{{ forloop.counter }}"
+                  value="{{ choice.id }}"
+                /> 
+                <label for="choice{{ forloop.counter }}">{{ choice.choice_text }}</label
+                  >
+              </li>
+              {% endfor %}
+            </fieldset>
+              <div class="m-1 d-flex justify-content-center">
+                <div class="btn-group" style="width: 20rem">
+                  <input type="submit" class="btn btn-primary" value="Vote" />
+                <a href="/polls" class="btn btn-outline-primary">Cancel</a>
+                </div>
+              </div>
+            </ul>
+          </div>
+        </form>
+      </div>
+        
+       
+    {% include "./partials/footer.html" %}
+  </body>
+</html>

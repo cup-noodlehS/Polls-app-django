@@ -1,0 +1,36 @@
+{% include "./partials/head.html" %}
+
+  <body>
+    
+    {% include "./partials/navbar.html" %} {% if latest_question_list %}
+    <main class="container">
+      <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+        <div>
+          <div class="card" style="width: 20rem;">
+            <h5 class="m-3">Questions</h5>
+            <ul class="list-group list-group-flush">
+              {% for question in latest_question_list %}
+              <li class="list-group-item d-flex justify-content-between" href="{% url 'polls:detail' question.id %}">
+                <a href="{% url 'polls:detail' question.id %}" class="text-decoration-none"
+                  >{{forloop.counter}}. {{ question.question_text }}</a
+                >
+                <a href="{% url 'polls:detail' question.id %}" class="btn btn-primary mx-2 position-relative" style="height: 38px;">Answer<span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  {{ question.votes_num }}
+                </span></a>
+              </li>
+              {% endfor %}
+              <div class="list-group list-group-flush bg-primary" >
+                <a href="{%url 'polls:new' 1 %}" class="link-underline add link-underline-opacity-0 text-center p-2">Add Question</a>
+              </div>
+            </ul>
+          </div>
+          {% else %}
+          <p>No polls are available.</p>
+          {% endif %}
+        </div>
+      </div>
+      
+    </main>
+    {% include "./partials/footer.html" %}
+  </body>
+</html>
