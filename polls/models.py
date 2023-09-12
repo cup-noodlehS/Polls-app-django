@@ -4,8 +4,14 @@ from django.db import models
 from django.utils import timezone
 from django.contrib import admin
 
+class Set(models.Model):
+    set_name = models.CharField(max_length=200)
+    pub_date = models.DateTimeField(auto_now_add=True)
+
 
 class Question(models.Model):
+    set = models.ForeignKey(Set, on_delete=models.CASCADE)
+
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField("date published")
     votes_num = models.IntegerField(default=0)
