@@ -1,5 +1,4 @@
 from django.contrib import admin
-
 from .models import Question, Choice, Set
 
 class ChoiceInline(admin.TabularInline):
@@ -16,5 +15,11 @@ class QuestionAdmin(admin.ModelAdmin):
     list_filter = ["pub_date"]
     search_fields = ["question_text"]
 
+class SetAdmin(admin.ModelAdmin):
+    fieldsets = [
+        (None, {"fields": ["set_name"]}),  
+    ]
+    list_display = ["set_name"]
+
 admin.site.register(Question, QuestionAdmin)
-admin.site.register(Set)
+admin.site.register(Set, SetAdmin)

@@ -7,10 +7,13 @@
       style="width: 25rem"
       method="post"
       action="{% url 'polls:addquestion' %}"
+      autocomplete="off"
     >
       {% csrf_token %}
       <fieldset>
-        <div class="card-header">New Question</div>
+        <div class="card-header">
+          Add Question to Set <strong>{{ set_name }}</strong>
+        </div>
         <ul class="list-group list-group-flush">
           <li class="list-group-item">
             <div class="input-group">
@@ -42,13 +45,13 @@
             <div class="text-center">
               <div class="btn-group">
                 <a
-                  href="{% url 'polls:new' choice_count_add %}"
+                  href="{% url 'polls:new' choice_count_add set_id %}"
                   class="btn btn-primary"
                   >Add Choices</a
                 >
                 {% if choice_count > 1 %}
                 <a
-                  href="{% url 'polls:new' choice_count_min %}"
+                  href="{% url 'polls:new' choice_count_min set_id %}"
                   class="btn btn-outline-primary"
                   >Remove Choices</a
                 >
@@ -57,6 +60,7 @@
             </div>
           </li>
           <input type="hidden" name="choice_count" value="{{choice_count}}" />
+          <input type="hidden" name="set_id" value="{{set_id}}" />
           <li class="list-group-item d-flex justify-content-end">
             <button type="submit" class="btn btn-success me-1">Save</button>
             <a href="{% url 'polls:index' %}" class="btn btn-danger">Cancel</a>
