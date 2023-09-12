@@ -2,7 +2,7 @@
   <body>
     {% include "./partials/navbar.html" %}
     <main class="container">
-      <div class="d-flex flex-column justify-content-center align-items-center" style="height: 80vh;">
+      <div class="d-flex flex-column justify-content-start align-items-center" style="height: 80vh;">
         <div class="d-flex align-items-center">
           <h5 class="m-3">{{question.question_text}}</h5>
             <form action="{% url 'polls:deletequestion' %}" method="post">

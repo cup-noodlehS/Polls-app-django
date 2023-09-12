@@ -7,6 +7,7 @@ urlpatterns = [
     path("", views.IndexView.as_view(), name="index"),
     path("new/<int:choice_count>/<int:set_id>", views.new, name="new"),
     path("delete-question/", views.deleteQuestion, name="deletequestion"),
+    path("delete-set/<int:set_id>", views.deleteSet, name="deleteset"),
     path("add/", views.addQuestion, name="addquestion"),
     path("setadd/", views.addSet, name="addset"),
     path("<int:pk>/", views.DetailView.as_view(), name="detail"),

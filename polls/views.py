@@ -82,6 +82,15 @@ async def deleteQuestion(request):
     return HttpResponseRedirect(reverse("polls:index"))
 
 @sync_to_async
+def delete_set(set_id):
+    s = Set.objects.get(pk=set_id)
+    s.delete()
+
+async def deleteSet(request, set_id):
+    await delete_set(set_id)
+    return HttpResponseRedirect(reverse("polls:index"))
+
+@sync_to_async
 def save_set(set_name):
     s = Set(set_name=set_name, pub_date=timezone.now())
     s.save()
